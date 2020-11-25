@@ -1,23 +1,28 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
+using EnvDTE;
+
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+
 namespace Microsoft.Samples.VisualStudio.CodeSweep.VSPackage
 {
     [InstalledProductRegistration("#100", "#102", "1.0.0.0")]
-    [Guid(GuidList.guidVSPackagePkgString)]
+    [Guid(guidVSPackagePkgString)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]
-    //[ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideBindingPath()]
     public sealed class OnCleanSolutionDoneExtension : Package
     {
+        public const string guidVSPackagePkgString = "2b621c1e-60a3-48c5-a07d-0ad6d3dd3417";
+        public static readonly Guid guidVSPackagePkg = new Guid(guidVSPackagePkgString);
+        public static readonly Guid guidVSPackageCmdSet = new Guid("d0882566-3d01-4578-b4f2-0aff36119700");
+
         protected override void Initialize()
         {
             base.Initialize();
