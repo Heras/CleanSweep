@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs/CodeSweep/v16
+/BuildTask/bin
+/BuildTask/obj
+/Scanner/bin
+/Scanner/obj
+/Utilities/bin
+/Utilities/obj
+/VsPackage/bin
+/VsPackage/obj
