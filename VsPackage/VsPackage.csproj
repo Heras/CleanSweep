@@ -192,25 +192,11 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CollectionWithEvents.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IBackgroundScanner.cs" />
-    <Compile Include="IConfigurationDialog.cs" />
-    <Compile Include="PkgCmdID.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="VsPkg.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
@@ -218,9 +204,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeSweep.targets">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -228,22 +211,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="extensions.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Resource Include="priority.bmp" />
-    <Content Include="sample_term_table.xml">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <VSCTCompile Include="VSPackage.vsct">
-      <ResourceName>Menus.ctmenu</ResourceName>
-    </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
