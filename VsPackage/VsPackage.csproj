@@ -197,9 +197,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IBackgroundScanner.cs" />
     <Compile Include="IConfigurationDialog.cs" />
-    <Compile Include="IProjectConfigurationStore.cs" />
-    <Compile Include="ITaskProvider.cs" />
-    <Compile Include="NonMSBuildProjectConfigStore.cs" />
     <Compile Include="PkgCmdID.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -242,20 +239,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BuildTask\BuildTask.csproj">
-      <Project>{9330DAAF-0FEE-4372-B768-964BAB47A659}</Project>
-      <Name>BuildTask</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Scanner\Scanner.csproj">
-      <Project>{9844C444-DB5C-4AC9-902C-282A7F970E8B}</Project>
-      <Name>Scanner</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{34D56C68-85AC-41E1-804A-BD3484A53448}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <VSCTCompile Include="VSPackage.vsct">
