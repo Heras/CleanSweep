@@ -196,13 +196,11 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
     <Compile Include="Guids.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IBackgroundScanner.cs" />
-    <Compile Include="IBuildManager.cs" />
     <Compile Include="IConfigurationDialog.cs" />
     <Compile Include="IProjectConfigurationStore.cs" />
     <Compile Include="ITaskProvider.cs" />
     <Compile Include="NonMSBuildProjectConfigStore.cs" />
     <Compile Include="PkgCmdID.cs" />
-    <Compile Include="ProjectUtilities.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

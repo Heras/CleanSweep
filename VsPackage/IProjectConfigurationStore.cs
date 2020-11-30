@@ -17,7 +17,5 @@ namespace Microsoft.Samples.VisualStudio.CodeSweep.VSPackage
         ICollection<string> TermTableFiles { get; }
         ICollection<BuildTask.IIgnoreInstance> IgnoreInstances { get; }
         bool RunWithBuild { get; set; }
-        bool HasConfiguration { get; }
-        void CreateDefaultConfiguration();
     }
 }
