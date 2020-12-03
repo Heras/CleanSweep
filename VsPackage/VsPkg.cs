@@ -6,7 +6,10 @@
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell;
 
-    [InstalledProductRegistration("#100", "#102", "1.0.0.0")]
+    [InstalledProductRegistration(
+        "productName",
+        "productDetails",
+        "1.0.0.0")]
     [Guid(guidVSPackagePkgString)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
