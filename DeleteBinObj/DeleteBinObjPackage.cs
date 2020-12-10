@@ -58,6 +58,8 @@
 
         void OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (action == vsBuildAction.vsBuildActionClean)
             {
                 this.DeleteBinOBjFolders(this.DevelopmentToolsEnvironment.Solution);
@@ -66,7 +68,10 @@
 
         private void DeleteBinOBjFolders(Solution solution)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.PaneWriteLine("Delete bin & obj folders started...");
+
             this.PaneWriteLine($"Solution: {solution.FileName}");
 
             var solutionFilePath = Path.GetDirectoryName(solution.FileName);
@@ -81,11 +86,15 @@
 
         private void PaneWriteLine(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.PaneWrite(message + Environment.NewLine);
         }
 
         private void PaneWrite(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Pane.OutputString(message);
         }
 
@@ -95,6 +104,8 @@
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.pane == null)
                 {
                     var outWindow = GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
@@ -112,6 +123,8 @@
 
         private IEnumerable<string> GetProjectFilePaths(string solutionFileContents, string solutionFilePath)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var projectReferencePattern = "\"(?<project>[^\"]*.csproj)";
 
             return new Regex(projectReferencePattern)
@@ -131,6 +144,8 @@
 
         private void DeleteBinOBjFolders(string projectFilePath)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.PaneWriteLine($"Project FilePath: {projectFilePath}");
 
             new[] { "bin", "obj" }
@@ -146,6 +161,8 @@
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.buildEvents == null)
                 {
                     this.buildEvents = this.DevelopmentToolsEnvironment.Events.BuildEvents;
@@ -163,6 +180,8 @@
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.developmentToolsEnvironment == null)
                 {
                     this.developmentToolsEnvironment = this.GetService(typeof(DTE)) as DTE;
