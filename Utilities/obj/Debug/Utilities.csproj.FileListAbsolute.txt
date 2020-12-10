@@ -1,8 +1,0 @@
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\bin\Debug\Utilities.dll
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\bin\Debug\Utilities.pdb
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\obj\Debug\Utilities.csprojAssemblyReference.cache
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\obj\Debug\Microsoft.Samples.VisualStudio.CodeSweep.Properties.Resources.resources
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\obj\Debug\Utilities.csproj.GenerateResource.cache
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\obj\Debug\Utilities.csproj.CoreCompileInputs.cache
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\obj\Debug\Utilities.dll
-C:\Users\kverp\source\repos\VSSDK-Extensibility-Samples\Code_Sweep\C#\Utilities\obj\Debug\Utilities.pdb
