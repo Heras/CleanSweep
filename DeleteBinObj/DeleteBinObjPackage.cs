@@ -72,16 +72,21 @@
 
             this.PaneWriteLine("Delete bin & obj folders started...");
 
-            this.PaneWriteLine($"Solution: {solution.FileName}");
-
             var solutionFilePath = Path.GetDirectoryName(solution.FileName);
             var solutionFileContents = File.ReadAllText(solution.FileName);
 
-            this.GetProjectFilePaths(solutionFileContents, solutionFilePath)
-                .ToList()
-                .ForEach(this.DeleteBinOBjFolders);
+            var results = this.GetProjectFilePaths(solutionFileContents, solutionFilePath)
+                .Select((p, i) => this.DeleteBinOBjFolders(p, i))
+                .GroupBy(r => r)
+                .Select(g => new {
+                    Succeeded = g.Count(r => r == DeleteBinObjResult.Succeeded),
+                    Failed = g.Count(r => r == DeleteBinObjResult.Failed),
+                    Skipped = g.Count(r => r == DeleteBinObjResult.Skipped),
+                })
+                .Single();
 
-            this.PaneWriteLine($"Delete bin & obj folders finished");
+
+            this.PaneWriteLine($"========== Delete bin & obj: {results.Succeeded} succeeded, {results.Failed} failed, {results.Skipped} skipped ==========");
         }
 
         private void PaneWriteLine(string message)
@@ -134,7 +139,8 @@
                     .Cast<Group>()
                     .Last()
                     .Value)
-                .Select(f => {
+                .Select(f =>
+                {
                     this.PaneWriteLine($"Project: {solutionFilePath}\\{f}");
                     return f;
                 })
@@ -142,18 +148,15 @@
                 .Select(p => $"{solutionFilePath}\\{p}");
         }
 
-        private void DeleteBinOBjFolders(string projectFilePath)
+        private DeleteBinObjResult DeleteBinOBjFolders(string projectFilePath, int index)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            this.PaneWriteLine($"Project FilePath: {projectFilePath}");
-
             new[] { "bin", "obj" }
                 .ToList()
-                .ForEach(f => {
-                    Directory.Delete($"{projectFilePath}\\{f}", true);
-                    this.PaneWriteLine($"Folder: {f}: Ok");
-                });
+                .ForEach(f => Directory.Delete($"{projectFilePath}\\{f}", true));
+
+            return DeleteBinObjResult.Succeeded;
         }
 
 
@@ -189,6 +192,13 @@
 
                 return this.developmentToolsEnvironment;
             }
+        }
+
+        public enum DeleteBinObjResult
+        {
+            Succeeded,
+            Failed,
+            Skipped
         }
 
         protected override void Dispose(bool disposing)
