@@ -45,8 +45,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ICleanSweepService.cs" />
+    <Compile Include="IDevelopmentToolsEnvironmentAdapter.cs" />
+    <Compile Include="IFileSystemAdapter.cs" />
+    <Compile Include="ILogAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeleteBinObjPackage.cs" />
+    <Compile Include="CleanSweepService.cs" />
+    <Compile Include="VisualStudioBuildOutputWindowPane.cs" />
+    <Compile Include="WindowsFileSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">

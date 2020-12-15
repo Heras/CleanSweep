@@ -1,13 +1,9 @@
 ﻿namespace DeleteBinObj
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
     using System.Runtime.InteropServices;
-    using System.Text.RegularExpressions;
     using System.Threading;
+
     using EnvDTE;
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell;
@@ -37,6 +33,8 @@
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class DeleteBinObjPackage : AsyncPackage
     {
+        private ICleanSweepService cleanSweepService;
+
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
         /// where you can put all the initialization code that rely on services provided by VisualStudio.
@@ -50,136 +48,16 @@
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
-            this.BuildEvents.OnBuildDone += OnBuildDone;
-        }
+            var dte = await this.GetServiceAsync<DTE, _DTE>();
+            var developmentToolsEnvironment = new DevelopmentToolsEnvironmentAdapter(dte);
 
-        void OnBuildDone(vsBuildScope scope, vsBuildAction action)
-        {
-            if (action == vsBuildAction.vsBuildActionClean)
-            {
-                this.DeleteBinOBjFolders(this.DevelopmentToolsEnvironment.Solution.FileName);
-            }
-        }
+            var outputWindow = GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+            var log = new VisualStudioBuildOutputWindowPane(outputWindow);
 
-        private void DeleteBinOBjFolders(string solutionFileName)
-        {
-            this.PaneWriteLine("Delete bin & obj folders started...");
+            var fileSystem = new WindowsFileSystem();
 
-            var solutionFileContents = File.ReadAllText(solutionFileName);
-            var solutionFilePath = Path.GetDirectoryName(solutionFileName);
-
-            var results = this.GetProjectFilePaths(solutionFileContents, solutionFilePath)
-                .SelectMany((p, i) => this.DeleteBinOBjFolders(p.ProjectName, p.ProjectFilePath, i));
- 
-            this.PaneWriteLine($"========== Delete bin & obj: {results.Count(c => c == HttpStatusCode.NoContent)} succeeded, {results.Count(c => c == HttpStatusCode.InternalServerError)} failed, {results.Count(c => c == HttpStatusCode.NotFound)} skipped ==========");
-        }
-
-        private void PaneWriteLine(string message)
-        {
-            this.PaneWrite(message + Environment.NewLine);
-        }
-
-        private void PaneWrite(string message)
-        {
-            this.Pane.OutputString(message);
-        }
-
-        IVsOutputWindowPane pane;
-
-        IVsOutputWindowPane Pane
-        {
-            get
-            {
-                if (this.pane == null)
-                {
-                    var outWindow = GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-                    var paneGuid = VSConstants.GUID_BuildOutputWindowPane;
-                    IVsOutputWindowPane generalPane;
-
-                    outWindow.GetPane(ref paneGuid, out generalPane);
-
-                    this.pane = generalPane;
-                }
-
-                return this.pane;
-            }
-        }
-
-        private IEnumerable<(string ProjectName, string ProjectFilePath)> GetProjectFilePaths(string solutionFileContents, string solutionFilePath)
-        {
-            var projectReferencePattern = "\"(?<project>[^\"]*).csproj";
-
-            return new Regex(projectReferencePattern)
-                .Matches(solutionFileContents)
-                .Cast<Match>()
-                .Select(m => m.Groups
-                    .Cast<Group>()
-                    .Last()
-                    .Value)
-                .Select(n => (n, Path.GetDirectoryName(n + ".csproj")))
-                .Select(t => (t.n, $"{solutionFilePath}\\{t.Item2}"));
-        }
-
-        private IEnumerable<HttpStatusCode> DeleteBinOBjFolders(string projectName, string projectFilePath, int index)
-        {
-            this.PaneWriteLine($"{index+1}>------ Delete bin & obj folders started: Project: {projectName}");
-
-            return new[] { "bin", "obj" }
-                .Select(f => $"{projectFilePath}\\{f}")
-                .Select(p => this.Delete(p, index));
-        }
-
-        private HttpStatusCode Delete(string path, int index)
-        {
-            this.PaneWriteLine($"{index+1}>------ Delete {path}");
-
-            if (false == Directory.Exists(path))
-            {
-                return HttpStatusCode.NotFound;
-            }
-
-            try
-            {
-                Directory.Delete(path, true);
-            }
-            catch (Exception e)
-            {
-                this.PaneWriteLine(e.Message);
-
-                return HttpStatusCode.InternalServerError;
-            }
-
-            return HttpStatusCode.NoContent;
-        }
-
-        private BuildEvents BuildEvents
-        {
-            get
-            {
-                if (this.buildEvents == null)
-                {
-                    this.buildEvents = this.DevelopmentToolsEnvironment.Events.BuildEvents;
-                }
-
-                return this.buildEvents;
-            }
-        }
-
-        private BuildEvents buildEvents;
-
-        private DTE developmentToolsEnvironment;
-
-        private DTE DevelopmentToolsEnvironment
-        {
-            get
-            {
-                if (this.developmentToolsEnvironment == null)
-                {
-                    this.developmentToolsEnvironment = this.GetService(typeof(DTE)) as DTE;
-                }
-
-                return this.developmentToolsEnvironment;
-            }
+            this.cleanSweepService = new CleanSweepService(developmentToolsEnvironment, log, fileSystem);
+            this.cleanSweepService.WireUp();
         }
 
         protected override void Dispose(bool disposing)
@@ -188,7 +66,7 @@
             {
                 if (disposing)
                 {
-                    this.buildEvents.OnBuildDone -= OnBuildDone;
+                    this.cleanSweepService.Dispose();
 
                     GC.SuppressFinalize(this);
                 }
