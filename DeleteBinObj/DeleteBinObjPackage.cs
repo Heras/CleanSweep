@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Runtime.InteropServices;
     using System.Text.RegularExpressions;
     using System.Threading;
@@ -54,48 +55,32 @@
 
         void OnBuildDone(vsBuildScope scope, vsBuildAction action)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             if (action == vsBuildAction.vsBuildActionClean)
             {
-                this.DeleteBinOBjFolders(this.DevelopmentToolsEnvironment.Solution);
+                this.DeleteBinOBjFolders(this.DevelopmentToolsEnvironment.Solution.FileName);
             }
         }
 
-        private void DeleteBinOBjFolders(Solution solution)
+        private void DeleteBinOBjFolders(string solutionFileName)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             this.PaneWriteLine("Delete bin & obj folders started...");
 
-            var solutionFilePath = Path.GetDirectoryName(solution.FileName);
-            var solutionFileContents = File.ReadAllText(solution.FileName);
+            var solutionFileContents = File.ReadAllText(solutionFileName);
+            var solutionFilePath = Path.GetDirectoryName(solutionFileName);
 
             var results = this.GetProjectFilePaths(solutionFileContents, solutionFilePath)
-                .Select((p, i) => this.DeleteBinOBjFolders(p, i))
-                .GroupBy(r => r)
-                .Select(g => new {
-                    Succeeded = g.Count(r => r == DeleteBinObjResult.Succeeded),
-                    Failed = g.Count(r => r == DeleteBinObjResult.Failed),
-                    Skipped = g.Count(r => r == DeleteBinObjResult.Skipped),
-                })
-                .Single();
-
-
-            this.PaneWriteLine($"========== Delete bin & obj: {results.Succeeded} succeeded, {results.Failed} failed, {results.Skipped} skipped ==========");
+                .SelectMany((p, i) => this.DeleteBinOBjFolders(p.ProjectName, p.ProjectFilePath, i));
+ 
+            this.PaneWriteLine($"========== Delete bin & obj: {results.Count(c => c == HttpStatusCode.NoContent)} succeeded, {results.Count(c => c == HttpStatusCode.InternalServerError)} failed, {results.Count(c => c == HttpStatusCode.NotFound)} skipped ==========");
         }
 
         private void PaneWriteLine(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             this.PaneWrite(message + Environment.NewLine);
         }
 
         private void PaneWrite(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             this.Pane.OutputString(message);
         }
 
@@ -105,8 +90,6 @@
         {
             get
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (this.pane == null)
                 {
                     var outWindow = GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
@@ -122,11 +105,9 @@
             }
         }
 
-        private IEnumerable<string> GetProjectFilePaths(string solutionFileContents, string solutionFilePath)
+        private IEnumerable<(string ProjectName, string ProjectFilePath)> GetProjectFilePaths(string solutionFileContents, string solutionFilePath)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            var projectReferencePattern = "\"(?<project>[^\"]*.csproj)";
+            var projectReferencePattern = "\"(?<project>[^\"]*).csproj";
 
             return new Regex(projectReferencePattern)
                 .Matches(solutionFileContents)
@@ -135,33 +116,46 @@
                     .Cast<Group>()
                     .Last()
                     .Value)
-                .Select(f =>
-                {
-                    this.PaneWriteLine($"Project: {solutionFilePath}\\{f}");
-                    return f;
-                })
-                .Select(f => Path.GetDirectoryName(f))
-                .Select(p => $"{solutionFilePath}\\{p}");
+                .Select(n => (n, Path.GetDirectoryName(n + ".csproj")))
+                .Select(t => (t.n, $"{solutionFilePath}\\{t.Item2}"));
         }
 
-        private DeleteBinObjResult DeleteBinOBjFolders(string projectFilePath, int index)
+        private IEnumerable<HttpStatusCode> DeleteBinOBjFolders(string projectName, string projectFilePath, int index)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            this.PaneWriteLine($"{index+1}>------ Delete bin & obj folders started: Project: {projectName}");
 
-            new[] { "bin", "obj" }
-                .ToList()
-                .ForEach(f => Directory.Delete($"{projectFilePath}\\{f}", true));
-
-            return DeleteBinObjResult.Succeeded;
+            return new[] { "bin", "obj" }
+                .Select(f => $"{projectFilePath}\\{f}")
+                .Select(p => this.Delete(p, index));
         }
 
+        private HttpStatusCode Delete(string path, int index)
+        {
+            this.PaneWriteLine($"{index+1}>------ Delete {path}");
+
+            if (false == Directory.Exists(path))
+            {
+                return HttpStatusCode.NotFound;
+            }
+
+            try
+            {
+                Directory.Delete(path, true);
+            }
+            catch (Exception e)
+            {
+                this.PaneWriteLine(e.Message);
+
+                return HttpStatusCode.InternalServerError;
+            }
+
+            return HttpStatusCode.NoContent;
+        }
 
         private BuildEvents BuildEvents
         {
             get
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (this.buildEvents == null)
                 {
                     this.buildEvents = this.DevelopmentToolsEnvironment.Events.BuildEvents;
@@ -179,8 +173,6 @@
         {
             get
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (this.developmentToolsEnvironment == null)
                 {
                     this.developmentToolsEnvironment = this.GetService(typeof(DTE)) as DTE;
@@ -188,13 +180,6 @@
 
                 return this.developmentToolsEnvironment;
             }
-        }
-
-        public enum DeleteBinObjResult
-        {
-            Succeeded,
-            Failed,
-            Skipped
         }
 
         protected override void Dispose(bool disposing)
