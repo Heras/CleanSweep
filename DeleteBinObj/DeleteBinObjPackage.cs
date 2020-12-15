@@ -11,6 +11,7 @@
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell;
     using Microsoft.VisualStudio.Shell.Interop;
+
     using Task = System.Threading.Tasks.Task;
 
     /// <summary>
@@ -31,15 +32,10 @@
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [Guid(DeleteBinObjPackage.PackageGuidString)]
+    [Guid("7e43adcf-1439-4297-9e1d-8f2e21aee751")]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class DeleteBinObjPackage : AsyncPackage
     {
-        /// <summary>
-        /// DeleteBinObjPackage GUID string.
-        /// </summary>
-        public const string PackageGuidString = "7e43adcf-1439-4297-9e1d-8f2e21aee751";
-
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
         /// where you can put all the initialization code that rely on services provided by VisualStudio.
