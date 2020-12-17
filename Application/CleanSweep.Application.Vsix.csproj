@@ -50,7 +50,6 @@
     <Compile Include="CleanSweepPackage.cs" />
     <Compile Include="CleanSweepService.cs" />
     <Compile Include="VisualStudioBuildOutputWindowPane.cs" />
-    <Compile Include="WindowsFileSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">
@@ -68,6 +67,10 @@
     <ProjectReference Include="..\CleanSweep.Adapter.Contract\CleanSweep.Adapter.Contract.csproj">
       <Project>{e99ae735-2186-4e6b-bc07-ca0774d3ce59}</Project>
       <Name>CleanSweep.Adapter.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CleanSweep.Adapter.Implementation\CleanSweep.Adapter.Implementation.csproj">
+      <Project>{0205ec64-4e96-4b91-a5cd-f77cd1f42634}</Project>
+      <Name>CleanSweep.Adapter.Implementation</Name>
     </ProjectReference>
     <ProjectReference Include="..\CleanSweep.Domain.Contract\CleanSweep.Domain.Contract.csproj">
       <Project>{0ac08e82-8a8f-4b7f-95a2-7cbe4a028b40}</Project>

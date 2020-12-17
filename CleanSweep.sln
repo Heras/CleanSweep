@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanSweep.Adapter.Contract
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanSweep.Domain.Contract", "CleanSweep.Domain.Contract\CleanSweep.Domain.Contract.csproj", "{0AC08E82-8A8F-4B7F-95A2-7CBE4A028B40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanSweep.Adapter.Implementation", "CleanSweep.Adapter.Implementation\CleanSweep.Adapter.Implementation.csproj", "{0205EC64-4E96-4B91-A5CD-F77CD1F42634}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0AC08E82-8A8F-4B7F-95A2-7CBE4A028B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AC08E82-8A8F-4B7F-95A2-7CBE4A028B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC08E82-8A8F-4B7F-95A2-7CBE4A028B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0205EC64-4E96-4B91-A5CD-F77CD1F42634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0205EC64-4E96-4B91-A5CD-F77CD1F42634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0205EC64-4E96-4B91-A5CD-F77CD1F42634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0205EC64-4E96-4B91-A5CD-F77CD1F42634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
