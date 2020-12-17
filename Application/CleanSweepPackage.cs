@@ -11,8 +11,10 @@
 
     using Task = System.Threading.Tasks.Task;
 
-    using CleanSweep.Domain.Contract;
     using CleanSweep.Adapter.Implementation;
+
+    using CleanSweep.Domain.Contract;
+    using CleanSweep.Domain.Implementation;
 
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.

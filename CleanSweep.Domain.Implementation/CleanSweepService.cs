@@ -1,4 +1,4 @@
-﻿namespace CleanSweep.Application.Vsix
+﻿namespace CleanSweep.Domain.Implementation
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
     using CleanSweep.Adapter.Contract;
     using CleanSweep.Domain.Contract;
 
-    internal class CleanSweepService : ICleanSweepService
+    public class CleanSweepService : ICleanSweepService
     {
         private readonly IDevelopmentToolsEnvironmentAdapter developmentToolsEnvironment;
         private readonly ILogAdapter log;

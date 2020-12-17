@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanSweep.Adapter.Contract\CleanSweep.Adapter.Contract.csproj" />
+    <ProjectReference Include="..\CleanSweep.Domain.Contract\CleanSweep.Domain.Contract.csproj" />
+  </ItemGroup>
+
+</Project>
