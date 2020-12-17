@@ -2,14 +2,7 @@
 {
     using EnvDTE;
 
-    public delegate void EventHandler();
-
-    public interface IDevelopmentToolsEnvironmentAdapter
-    {
-        string SolutionFileName { get; }
-
-        event EventHandler OnCleanDone;
-    }
+    using CleanSweep.Adapter.Contract;
 
     public class DevelopmentToolsEnvironmentAdapter : IDevelopmentToolsEnvironmentAdapter
     {

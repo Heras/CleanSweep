@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
-
-namespace CleanSweep.Application.Vsix
+﻿namespace CleanSweep.Application.Vsix
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Text.RegularExpressions;
+
+    using CleanSweep.Adapter.Contract;
+
     internal class CleanSweepService : IDisposable, ICleanSweepService
     {
         private readonly IDevelopmentToolsEnvironmentAdapter developmentToolsEnvironment;

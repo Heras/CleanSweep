@@ -1,8 +1,4 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs
-/Application/obj
-/Application/bin
+﻿/.vs
 /Application/CleanSweep.csproj.user
+**/bin/
+**/obj/
