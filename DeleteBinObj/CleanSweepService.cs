@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace DeleteBinObj
+namespace CleanSweep
 {
     internal class CleanSweepService : IDisposable, ICleanSweepService
     {

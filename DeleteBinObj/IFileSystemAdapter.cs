@@ -1,4 +1,4 @@
-﻿namespace DeleteBinObj
+﻿namespace CleanSweep
 {
     public interface IFileSystemAdapter
     {

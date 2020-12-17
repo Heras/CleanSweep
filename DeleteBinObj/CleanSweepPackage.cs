@@ -1,4 +1,4 @@
-﻿namespace DeleteBinObj
+﻿namespace CleanSweep
 {
     using System;
     using System.Runtime.InteropServices;
@@ -31,7 +31,7 @@
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid("7e43adcf-1439-4297-9e1d-8f2e21aee751")]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string, PackageAutoLoadFlags.BackgroundLoad)]
-    public sealed class DeleteBinObjPackage : AsyncPackage
+    public sealed class CleanSweepPackage : AsyncPackage
     {
         private ICleanSweepService cleanSweepService;
 

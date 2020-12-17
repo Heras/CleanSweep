@@ -1,4 +1,4 @@
-﻿namespace DeleteBinObj
+﻿namespace CleanSweep
 {
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell.Interop;

@@ -1,4 +1,4 @@
-﻿namespace DeleteBinObj
+﻿namespace CleanSweep
 {
     using EnvDTE;
 
