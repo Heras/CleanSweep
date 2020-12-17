@@ -47,8 +47,6 @@
   <ItemGroup>
     <Compile Include="DevelopmentToolsEnvironmentAdapter.cs" />
     <Compile Include="ICleanSweepService.cs" />
-    <Compile Include="IFileSystemAdapter.cs" />
-    <Compile Include="ILogAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CleanSweepPackage.cs" />
     <Compile Include="CleanSweepService.cs" />

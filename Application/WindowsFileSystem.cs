@@ -2,6 +2,8 @@
 {
     using System.IO;
 
+    using CleanSweep.Adapter.Contract;
+
     public class WindowsFileSystem : IFileSystemAdapter
     {
         public void DeleteDirectory(string path)

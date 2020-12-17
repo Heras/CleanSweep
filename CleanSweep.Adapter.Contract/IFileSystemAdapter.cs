@@ -1,4 +1,4 @@
-﻿namespace CleanSweep.Application.Vsix
+﻿namespace CleanSweep.Adapter.Contract
 {
     public interface IFileSystemAdapter
     {

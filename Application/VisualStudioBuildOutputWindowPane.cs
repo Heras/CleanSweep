@@ -1,8 +1,11 @@
 ﻿namespace CleanSweep.Application.Vsix
 {
+    using System;
+    
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell.Interop;
-    using System;
+
+    using CleanSweep.Adapter.Contract;
 
     public class VisualStudioBuildOutputWindowPane : ILogAdapter
     {
