@@ -1,4 +1,4 @@
-﻿namespace CleanSweep
+﻿namespace CleanSweep.Application.Vsix
 {
     using Microsoft.VisualStudio;
     using Microsoft.VisualStudio.Shell.Interop;

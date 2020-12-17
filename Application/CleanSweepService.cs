@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace CleanSweep
+namespace CleanSweep.Application.Vsix
 {
     internal class CleanSweepService : IDisposable, ICleanSweepService
     {

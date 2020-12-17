@@ -3,6 +3,6 @@
 ################################################################################
 
 /.vs
-/DeleteBinObj/obj
-/DeleteBinObj/bin
-/DeleteBinObj/DeleteBinObj.csproj.user
+/Application/obj
+/Application/bin
+/Application/CleanSweep.csproj.user

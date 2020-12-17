@@ -1,4 +1,4 @@
-﻿namespace CleanSweep
+﻿namespace CleanSweep.Application.Vsix
 {
     using System;
     using System.Runtime.InteropServices;
