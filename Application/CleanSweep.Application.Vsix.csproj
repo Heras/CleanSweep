@@ -46,7 +46,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DevelopmentToolsEnvironmentAdapter.cs" />
-    <Compile Include="ICleanSweepService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CleanSweepPackage.cs" />
     <Compile Include="CleanSweepService.cs" />
@@ -69,6 +68,10 @@
     <ProjectReference Include="..\CleanSweep.Adapter.Contract\CleanSweep.Adapter.Contract.csproj">
       <Project>{e99ae735-2186-4e6b-bc07-ca0774d3ce59}</Project>
       <Name>CleanSweep.Adapter.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CleanSweep.Domain.Contract\CleanSweep.Domain.Contract.csproj">
+      <Project>{0ac08e82-8a8f-4b7f-95a2-7cbe4a028b40}</Project>
+      <Name>CleanSweep.Domain.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

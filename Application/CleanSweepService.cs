@@ -7,8 +7,9 @@
     using System.Text.RegularExpressions;
 
     using CleanSweep.Adapter.Contract;
+    using CleanSweep.Domain.Contract;
 
-    internal class CleanSweepService : IDisposable, ICleanSweepService
+    internal class CleanSweepService : ICleanSweepService
     {
         private readonly IDevelopmentToolsEnvironmentAdapter developmentToolsEnvironment;
         private readonly ILogAdapter log;
