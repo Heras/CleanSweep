@@ -1,4 +1,4 @@
-﻿namespace CleanSweep.Application.Vsix
+﻿namespace CleanSweep.Adapter.Implementation
 {
     using System;
     
