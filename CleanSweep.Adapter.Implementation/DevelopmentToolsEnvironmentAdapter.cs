@@ -6,13 +6,15 @@
 
     public class DevelopmentToolsEnvironmentAdapter : IDevelopmentToolsEnvironmentAdapter
     {
-        private readonly _DTE dte;
+        private readonly _DTE developmentToolsEnvironment;
+        private readonly BuildEvents buildEvents;
 
         public DevelopmentToolsEnvironmentAdapter(_DTE dte)
         {
-            this.dte = dte;
+            this.developmentToolsEnvironment = dte;
+            this.buildEvents = this.developmentToolsEnvironment.Events.BuildEvents;
 
-            this.dte.Events.BuildEvents.OnBuildDone += OnBuildDone;
+            this.buildEvents.OnBuildDone += OnBuildDone;
         }
 
         private void OnBuildDone(vsBuildScope scope, vsBuildAction action)
@@ -29,7 +31,7 @@
         {
             get
             {
-                return this.dte.Solution.FileName;
+                return this.developmentToolsEnvironment.Solution.FileName;
             }
         }
     }
