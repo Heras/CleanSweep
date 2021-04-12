@@ -4,6 +4,5 @@
 
     public interface ICleanSweepService : IDisposable
     {
-        void WireUp();
     }
 }

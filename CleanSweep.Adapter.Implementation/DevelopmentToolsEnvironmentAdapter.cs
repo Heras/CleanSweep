@@ -12,7 +12,7 @@
         public DevelopmentToolsEnvironmentAdapter(_DTE dte)
         {
             this.developmentToolsEnvironment = dte;
-            this.buildEvents = this.developmentToolsEnvironment.Events.BuildEvents;
+            this.buildEvents = this.developmentToolsEnvironment.Events.BuildEvents; // If we don't keep a reference to BuildEvents, the GC will destroy it, even if it has an active event subscription
 
             this.buildEvents.OnBuildDone += OnBuildDone;
         }

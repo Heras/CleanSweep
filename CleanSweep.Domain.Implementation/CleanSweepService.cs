@@ -20,10 +20,7 @@
             this.developmentToolsEnvironment = developmentToolsEnvironment;
             this.log = log;
             this.fileSystem = fileSystem;
-        }
 
-        public void WireUp()
-        {
             this.developmentToolsEnvironment.OnCleanDone += DeleteBinObjFolders;
         }
 
