@@ -5,7 +5,7 @@
         <DisplayName>CleanSweep</DisplayName>
         <Description xml:space="preserve">CleanSweep automatically deletes bin and obj folders after the Clean Solution command has finished.</Description>
         <MoreInfo>https://github.com/Heras/CleanSweep</MoreInfo>
-        <License>MIT</License>
+        <License>license.txt</License>
         <Icon>cleansweep-icon.png</Icon>
         <PreviewImage>cleansweep-preview.png</PreviewImage>
         <Tags>bin obj clean delete</Tags>
